@@ -1,30 +1,48 @@
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.ParseException;
+
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
 
-        //Declarar elementos visuais
-        Border emptyBorder = BorderFactory.createEmptyBorder(20, 20, 20, 20); // 10 pixels of padding on the left
-        JLabel label = new JLabel("Calculadora de média de 50 números.");
-        JButton button = new JButton("Calcular");
+        //Declarar elementos
+        JLabel titleLabel = new JLabel("Calculadora de média de 50 números.");
+        MaskFormatter numberMask = new MaskFormatter("#######");
+        JFormattedTextField fieldTypedNumber = new JFormattedTextField(numberMask);
+        JLabel infoLabel = new JLabel("1/50.");
+        JButton buttonCalculateAction = new JButton("Calcular");
 
         //Declarar + configurar JFrame
-        JFrame frame = new JFrame("Média - Atividade Descomplica");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 300);
+        JFrame mainFrame = new JFrame("Média - Atividade Descomplica");
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setLayout(null);
+
+        //Definições de posição dos elementos
+        titleLabel.setBounds            (40, 20,    400, 20);
+        infoLabel.setBounds            (40, 50,    400, 20);
+        buttonCalculateAction.setBounds (40, 150,   100, 30);
+        fieldTypedNumber.setBounds      (40, 80,    200, 30);
+
+        //Tamanho do JFrame
+        mainFrame.setSize(400, 300);
+
 
         //Adicionar elementos ao JFrame
-        label.setBorder(emptyBorder);
-        frame.add(label, BorderLayout.NORTH);
-        frame.add(button, BorderLayout.SOUTH);
-        frame.setVisible(true);
+        mainFrame.add(titleLabel);
+        mainFrame.add(buttonCalculateAction);
+        mainFrame.add(fieldTypedNumber);
+        mainFrame.add(infoLabel);
+        mainFrame.setVisible(true);
 
-        button.addActionListener(new ActionListener() {
+
+        //Ações...
+        buttonCalculateAction.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                label.setText("Calculado");
+                titleLabel.setText("Calculado");
             }
         });
 
