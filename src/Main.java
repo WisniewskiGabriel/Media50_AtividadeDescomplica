@@ -12,7 +12,7 @@ public class Main {
 
         //Declarar elementos
         JLabel titleLabel                       = new JLabel("Calculadora de média de 50 números.");
-        JTextField fieldTypedNumber    = new JTextField("");
+        JTextField fieldTypedNumber             = new JTextField("");
         JLabel infoLabel                        = new JLabel("1/50.");
         JButton buttonCalculateAction           = new JButton("Add. próx número");
 
@@ -40,29 +40,43 @@ public class Main {
         mainFrame.setVisible(true);
 
         //Cálculo da média
-        int idx = 0;
+
         ArrayList<Integer> inputNumbers = new ArrayList<>();
 
         buttonCalculateAction.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Integer typedNumber = Integer.parseInt(fieldTypedNumber.getText());
-                System.out.println(typedNumber);
+
                 infoLabel.setText(inputNumbers.size()+2+"/50");
                 inputNumbers.add(typedNumber);
                 fieldTypedNumber.setText("");
-                System.out.println(inputNumbers.size());
-                if(inputNumbers.size()>=2){
+
+                //Checar se a qtd. máxima foi atingida
+                if(inputNumbers.size()>=50){
+
+                    //Remover elementos de input
                     mainFrame.remove(fieldTypedNumber);
                     mainFrame.remove(buttonCalculateAction);
+                    mainFrame.remove(infoLabel);
+
+                    //Somar e calcular valor da média
+
+                    Integer finalAverage = 0;
+                    for (Integer number : inputNumbers){
+                        finalAverage = finalAverage + number;
+                    }
+                    finalAverage = finalAverage/inputNumbers.size();
+
+                    //Exibir resultado
+                    JLabel labelResult = new JLabel("A média entre os "+inputNumbers.size()+" números é "+finalAverage);
+                    labelResult.setBounds(40,120,200,30);
+                    mainFrame.add(labelResult);
+
+                    //Forçar update do frame mudança dos elementos
                     mainFrame.revalidate();
                     mainFrame.repaint();
-
                 }
             }
         });
-
-
-
-
     }
 }
