@@ -77,6 +77,14 @@ public class Main {
                         labelResult.setBounds(40, 120, 500, 30);
                         mainFrame.add(labelResult);
 
+                        //Add botão de fechar
+                        JButton buttonCloseWindow = new JButton("Encerrar programa");
+                        buttonCloseWindow.setBounds(40, 180, 500, 30);
+                        mainFrame.add(buttonCloseWindow);
+                        buttonCloseWindow.addActionListener(x -> {
+                            mainFrame.dispose();
+                        });
+
                         //Forçar update do frame mudança dos elementos
                         mainFrame.revalidate();
                         mainFrame.repaint();
