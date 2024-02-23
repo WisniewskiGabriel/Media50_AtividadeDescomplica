@@ -15,10 +15,10 @@ public class Main {
         int MAX_AMOUNT = 50;
 
         //Declarar elementos
-        JLabel titleLabel                       = new JLabel("Calculadora de média de "+MAX_AMOUNT+" números.");
-        JTextField fieldTypedNumber             = new JTextField("");
-        JLabel infoLabel                        = new JLabel("1/"+MAX_AMOUNT);
-        JButton buttonCalculateAction           = new JButton("Add. próx número");
+        JLabel titleLabel = new JLabel("Calculadora de média de " + MAX_AMOUNT + " números.");
+        JTextField fieldTypedNumber = new JTextField("");
+        JLabel infoLabel = new JLabel("1/" + MAX_AMOUNT);
+        JButton buttonCalculateAction = new JButton("Add. próx número");
 
         //Declarar + configurar JFrame
         JFrame mainFrame = new JFrame("Média - Atividade Descomplica");
@@ -26,10 +26,10 @@ public class Main {
         mainFrame.setLayout(null);
 
         //Definições de posição dos elementos
-        titleLabel.setBounds            (40, 20,    400, 20);
-        infoLabel.setBounds             (40, 50,    400, 20);
-        buttonCalculateAction.setBounds (40, 150,   100, 30);
-        fieldTypedNumber.setBounds      (40, 80,    200, 30);
+        titleLabel.setBounds(40, 20, 400, 20);
+        infoLabel.setBounds(40, 50, 400, 20);
+        buttonCalculateAction.setBounds(40, 150, 100, 30);
+        fieldTypedNumber.setBounds(40, 80, 200, 30);
 
         //Tamanho do JFrame
         mainFrame.setSize(600, 300);
@@ -47,18 +47,18 @@ public class Main {
 
         ArrayList<Double> inputNumbers = new ArrayList<>();
 
-        buttonCalculateAction.addActionListener(new ActionListener() {
+        ActionListener actionListener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
                     String strOfTypedNumber = fieldTypedNumber.getText();
-                    strOfTypedNumber = strOfTypedNumber.replace(",",".");
+                    strOfTypedNumber = strOfTypedNumber.replace(",", ".");
                     Double typedNumber = Double.parseDouble(strOfTypedNumber);
-                    infoLabel.setText(inputNumbers.size()+2+"/"+MAX_AMOUNT);
+                    infoLabel.setText(inputNumbers.size() + 2 + "/" + MAX_AMOUNT);
                     inputNumbers.add(typedNumber);
                     fieldTypedNumber.setText("");
 
                     //Checar se a qtd. máxima foi atingida
-                    if(inputNumbers.size()>=MAX_AMOUNT){
+                    if (inputNumbers.size() >= MAX_AMOUNT) {
 
                         //Remover elementos de input
                         mainFrame.remove(fieldTypedNumber);
@@ -67,14 +67,14 @@ public class Main {
 
                         //Somar e calcular valor da média
                         Double finalAverage = 0.0;
-                        for (Double number : inputNumbers){
+                        for (Double number : inputNumbers) {
                             finalAverage = finalAverage + number;
                         }
-                        finalAverage = finalAverage/inputNumbers.size();
+                        finalAverage = finalAverage / inputNumbers.size();
 
                         //Exibir resultado
-                        JLabel labelResult = new JLabel("A média entre os "+inputNumbers.size()+" números é "+finalAverage);
-                        labelResult.setBounds(40,120,500,30);
+                        JLabel labelResult = new JLabel("A média entre os " + inputNumbers.size() + " números é " + finalAverage);
+                        labelResult.setBounds(40, 120, 500, 30);
                         mainFrame.add(labelResult);
 
                         //Forçar update do frame mudança dos elementos
@@ -82,14 +82,27 @@ public class Main {
                         mainFrame.repaint();
                     }
                 } catch (NumberFormatException | NullPointerException err) {
-                    String strMsgErro = fieldTypedNumber.getText().length()>0 ?
-                            "O input '"+fieldTypedNumber.getText()+
-                            "' não é válido.\n\nExemplos de formato correto:"+
-                            "\n1    1,1     1.1     -1      -1,1"
+                    String strMsgErro = fieldTypedNumber.getText().length() > 0 ?
+                            "O input '" + fieldTypedNumber.getText() +
+                                    "' não é válido.\n\nExemplos de formato correto:" +
+                                    "\n1    1,1     1.1     -1      -1,1"
                             :
                             "Input vazio. É necessário inserir algum valor no campo";
-                    JOptionPane.showMessageDialog(null,strMsgErro);
+                    JOptionPane.showMessageDialog(null, strMsgErro);
                     fieldTypedNumber.setText("");
+                }
+            }
+        };
+
+        buttonCalculateAction.addActionListener(actionListener);
+
+        // Adicionar keypress de enter para confirmar envio de número digitado
+        fieldTypedNumber.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    // Mesma coisa que o click do botão
+                    actionListener.actionPerformed(new ActionEvent(fieldTypedNumber, ActionEvent.ACTION_PERFORMED, null));
                 }
             }
         });
