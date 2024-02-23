@@ -35,7 +35,7 @@ public class Main {
         titleLabel.setBounds(40, 20, 400, 20);
         infoLabel.setBounds(40, 50, 400, 20);
         buttonCalculateAction.setBounds(40, 150, 100, 30);
-        fieldTypedNumber.setBounds(40, 80, 200, 30);
+        fieldTypedNumber.setBounds(40, 80, 500, 30);
 
         //Tamanho do JFrame
         mainFrame.setSize(600, 300);
