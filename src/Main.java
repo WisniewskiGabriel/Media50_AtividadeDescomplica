@@ -15,10 +15,15 @@ public class Main {
         int MAX_AMOUNT = 50;
 
         //Declarar elementos
+        Font fontForLabel = new Font("Dialog", Font.PLAIN, 20);
         JLabel titleLabel = new JLabel("Calculadora de média de " + MAX_AMOUNT + " números.");
         JTextField fieldTypedNumber = new JTextField("");
         JLabel infoLabel = new JLabel("1/" + MAX_AMOUNT);
         JButton buttonCalculateAction = new JButton("Add. próx número");
+
+        //Tamanhos da fonte dos labels
+        infoLabel.setFont(fontForLabel);
+        titleLabel.setFont(fontForLabel);
 
         //Declarar + configurar JFrame
         JFrame mainFrame = new JFrame("Média - Atividade Descomplica");
@@ -33,6 +38,7 @@ public class Main {
 
         //Tamanho do JFrame
         mainFrame.setSize(600, 300);
+        mainFrame.setLocationRelativeTo(null);
 
 
         //Adicionar elementos ao JFrame
@@ -75,6 +81,7 @@ public class Main {
                         //Exibir resultado
                         JLabel labelResult = new JLabel("A média entre os " + inputNumbers.size() + " números é " + finalAverage);
                         labelResult.setBounds(40, 120, 500, 30);
+                        labelResult.setFont(fontForLabel);
                         mainFrame.add(labelResult);
 
                         //Add botão de fechar
