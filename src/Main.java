@@ -3,6 +3,7 @@ import javax.swing.border.Border;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.*;
+import java.nio.DoubleBuffer;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -11,7 +12,7 @@ public class Main {
     public static void main(String[] args) throws ParseException {
 
         //CONTROLE DE QUANTOS NÚMEROS PODERÃO SER CALCULADOS:
-        int MAX_AMOUNT = 50;
+        int MAX_AMOUNT = 5;
 
         //Declarar elementos
         JLabel titleLabel                       = new JLabel("Calculadora de média de "+MAX_AMOUNT+" números.");
@@ -44,12 +45,14 @@ public class Main {
 
         //Cálculo da média
 
-        ArrayList<Integer> inputNumbers = new ArrayList<>();
+        ArrayList<Double> inputNumbers = new ArrayList<>();
 
         buttonCalculateAction.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Integer typedNumber = Integer.parseInt(fieldTypedNumber.getText());
+                    String strOfTypedNumber = fieldTypedNumber.getText();
+                    strOfTypedNumber = strOfTypedNumber.replace(",",".");
+                    Double typedNumber = Double.parseDouble(strOfTypedNumber);
                     infoLabel.setText(inputNumbers.size()+2+"/"+MAX_AMOUNT);
                     inputNumbers.add(typedNumber);
                     fieldTypedNumber.setText("");
@@ -63,9 +66,8 @@ public class Main {
                         mainFrame.remove(infoLabel);
 
                         //Somar e calcular valor da média
-
-                        Integer finalAverage = 0;
-                        for (Integer number : inputNumbers){
+                        Double finalAverage = 0.0;
+                        for (Double number : inputNumbers){
                             finalAverage = finalAverage + number;
                         }
                         finalAverage = finalAverage/inputNumbers.size();
@@ -80,8 +82,13 @@ public class Main {
                         mainFrame.repaint();
                     }
                 } catch (NumberFormatException | NullPointerException err) {
-                    JOptionPane.showMessageDialog(null, "O input '"+fieldTypedNumber.getText()+
-                            "' não é válido. O tipo esperado: Números inteiros. Ex: 4993");
+                    String strMsgErro = fieldTypedNumber.getText().length()>0 ?
+                            "O input '"+fieldTypedNumber.getText()+
+                            "' não é válido.\n\nExemplos de formato correto:"+
+                            "\n1    1,1     1.1     -1      -1,1"
+                            :
+                            "Input vazio. É necessário inserir algum valor no campo";
+                    JOptionPane.showMessageDialog(null,strMsgErro);
                     fieldTypedNumber.setText("");
                 }
             }
