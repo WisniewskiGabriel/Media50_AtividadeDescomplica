@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) throws ParseException {
 
         //CONTROLE DE QUANTOS NÚMEROS PODERÃO SER CALCULADOS:
-        int MAX_AMOUNT = 5;
+        int MAX_AMOUNT = 50;
 
         //Declarar elementos
         JLabel titleLabel                       = new JLabel("Calculadora de média de "+MAX_AMOUNT+" números.");
