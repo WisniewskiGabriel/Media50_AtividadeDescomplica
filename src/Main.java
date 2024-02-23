@@ -2,17 +2,18 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
 import java.awt.event.*;
 import java.nio.DoubleBuffer;
 import java.text.ParseException;
 import java.util.ArrayList;
-
+import java.awt.datatransfer.*;
 
 public class Main {
     public static void main(String[] args) throws ParseException {
 
         //CONTROLE DE QUANTOS NÚMEROS PODERÃO SER CALCULADOS:
-        int MAX_AMOUNT = 50;
+        int MAX_AMOUNT = 5;
 
         //Declarar elementos
         Font fontForLabel = new Font("Dialog", Font.PLAIN, 20);
@@ -72,15 +73,15 @@ public class Main {
                         mainFrame.remove(infoLabel);
 
                         //Somar e calcular valor da média
-                        Double finalAverage = 0.0;
+                        Double doubleAverage = 0.0;
                         for (Double number : inputNumbers) {
-                            finalAverage = finalAverage + number;
+                            doubleAverage = doubleAverage + number;
                         }
-                        finalAverage = finalAverage / inputNumbers.size();
+                        doubleAverage = doubleAverage / inputNumbers.size();
 
                         //Exibir resultado
-                        JLabel labelResult = new JLabel("A média entre os " + inputNumbers.size() + " números é " + finalAverage);
-                        labelResult.setBounds(40, 120, 500, 30);
+                        JLabel labelResult = new JLabel("A média entre os " + inputNumbers.size() + " números é " + doubleAverage);
+                        labelResult.setBounds(40, 80, 500, 30);
                         labelResult.setFont(fontForLabel);
                         mainFrame.add(labelResult);
 
@@ -90,6 +91,18 @@ public class Main {
                         mainFrame.add(buttonCloseWindow);
                         buttonCloseWindow.addActionListener(x -> {
                             mainFrame.dispose();
+                        });
+
+                        //Add botão de copiar resultado para o clipboard
+                        JButton buttonStrToClipboard = new JButton("Copiar resultado (Ctrl-C)");
+                        buttonStrToClipboard.setBounds(40, 150, 200, 20);
+                        mainFrame.add(buttonStrToClipboard);
+                        Double finalDoubleAverage = doubleAverage;
+                        buttonStrToClipboard.addActionListener(x -> {
+                            String strOfFinalAverage = Double.toString(finalDoubleAverage);
+                            StringSelection selection = new StringSelection(strOfFinalAverage);
+                            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                            clipboard.setContents(selection,null);
                         });
 
                         //Forçar update do frame mudança dos elementos
