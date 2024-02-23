@@ -20,6 +20,7 @@ public class Main {
         JLabel titleLabel = new JLabel("Calculadora de média de " + MAX_AMOUNT + " números.");
         JTextField fieldTypedNumber = new JTextField("");
         JLabel infoLabel = new JLabel("1/" + MAX_AMOUNT);
+        JLabel tipLabel = new JLabel("ou pressione 'Enter'");
         JButton buttonCalculateAction = new JButton("Add. próx número");
 
         //Tamanhos da fonte dos labels
@@ -34,7 +35,8 @@ public class Main {
         //Definições de posição dos elementos
         titleLabel.setBounds(40, 20, 400, 20);
         infoLabel.setBounds(40, 50, 400, 20);
-        buttonCalculateAction.setBounds(40, 150, 100, 30);
+        buttonCalculateAction.setBounds(40, 120, 100, 30);
+        tipLabel.setBounds(145, 120, 200, 30);
         fieldTypedNumber.setBounds(40, 80, 500, 30);
 
         //Tamanho do JFrame
@@ -47,6 +49,7 @@ public class Main {
         mainFrame.add(buttonCalculateAction);
         mainFrame.add(fieldTypedNumber);
         mainFrame.add(infoLabel);
+        mainFrame.add(tipLabel);
 
         mainFrame.setVisible(true);
 
@@ -71,6 +74,7 @@ public class Main {
                         mainFrame.remove(fieldTypedNumber);
                         mainFrame.remove(buttonCalculateAction);
                         mainFrame.remove(infoLabel);
+                        mainFrame.remove(tipLabel);
 
                         //Somar e calcular valor da média
                         Double doubleAverage = 0.0;
@@ -87,7 +91,7 @@ public class Main {
 
                         //Add botão de fechar
                         JButton buttonCloseWindow = new JButton("Encerrar programa");
-                        buttonCloseWindow.setBounds(40, 180, 500, 30);
+                        buttonCloseWindow.setBounds(40, 200, 500, 30);
                         mainFrame.add(buttonCloseWindow);
                         buttonCloseWindow.addActionListener(x -> {
                             mainFrame.dispose();
@@ -95,7 +99,7 @@ public class Main {
 
                         //Add botão de copiar resultado para o clipboard
                         JButton buttonStrToClipboard = new JButton("Copiar resultado (Ctrl-C)");
-                        buttonStrToClipboard.setBounds(40, 150, 200, 20);
+                        buttonStrToClipboard.setBounds(40, 120, 180, 30);
                         mainFrame.add(buttonStrToClipboard);
                         Double finalDoubleAverage = doubleAverage;
                         buttonStrToClipboard.addActionListener(x -> {
